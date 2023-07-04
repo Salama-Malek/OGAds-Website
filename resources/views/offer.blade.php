@@ -146,6 +146,7 @@
         h2 {
             font-size: inherit;
         }
+
         tt {
             font-size: inherit;
         }
@@ -177,7 +178,7 @@
 
         <div class="container2 my-5">
             <div class="input-container">
-            @php
+                @php
                 $offerController = new App\Http\Controllers\OfferController();
                 $data = $offerController->getCode();
                 @endphp
@@ -211,9 +212,8 @@
         <div class="row  justify-content-center align-items-center my-5">
             <h2 class="p-5">{{ 'أكمل المهام وأحصل على الجواهر' }}</h2>
             <img id="offer" src="{{ asset('images/offer.png') }}" class="img-fluid">
-         
+
         </div>
-        <div class="row offers-div justify-content-center align-items-center my-5">
         @foreach ($offers as $offer)
         <a class="row offer_div justify-content-center align-items-center my-1" href="{{ $offer['link'] }}">
             <img id="jal" src="{{ asset('images/jal.png') }}">
@@ -221,8 +221,6 @@
             <img id="offer" src="{{ $offer['picture'] }}" class="img-fluid">
         </a>
         @endforeach
-         
-        </div>
     </div>
 
     <script>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Code;
+use Faker\Factory as Faker;
 
 
 class OfferController extends Controller
@@ -15,14 +16,15 @@ class OfferController extends Controller
     {
         $apiKey = env('OGADS_API_KEY');
 
-        $response = Http::get('https://api.ipify.org/?format=json');
-        $data = $response->json();
+        // $response = Http::get('https://api.ipify.org/?format=json');
+        // $data = $response->json();
 
-        if (isset($data['ip'])) {
-            $ip = $data['ip'];
-        } else {
-            throw new \Exception('Failed to retrieve IP address');
-        }
+        // if (isset($data['ip'])) {
+        //     $ip = $data['ip'];
+        // } else {
+        //     throw new \Exception('Failed to retrieve IP address');
+        // }
+        $ip = $request->ip(); // Get the visitor's IP address
 
         $data = [
             'ip' => $ip,
@@ -44,7 +46,16 @@ class OfferController extends Controller
 
             if ($content['success']) {
                 $offers = $content['offers'];
-
+                // $faker = Faker::create();
+                // $offers = [];
+                // for ($i = 1; $i <= 20; $i++) {
+                //     $offer = [
+                //         'name_short' => 'Offer ' . $i . ' - ' . $faker->sentence(3),
+                //         'picture' => $faker->imageUrl(),
+                //         'link' => $faker->url(),
+                //     ];
+                //     $offers[] = $offer;
+                // }
                 return view('offer', ['offers' => $offers]);
             } else {
                 throw new \Exception($content['error']);
