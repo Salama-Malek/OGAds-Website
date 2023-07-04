@@ -83,8 +83,7 @@
         @media screen and (max-width: 320px) {
 
             /* Styles for small screens with width 320px or smaller */
-            .row.d-flex.justify-content-between.align-items-center {
-            }
+            .row.d-flex.justify-content-between.align-items-center {}
 
             .col {
                 flex-basis: 100%;
@@ -103,8 +102,7 @@
         @media screen and (min-width: 321px) and (max-width: 767px) {
 
             /* Styles for small screens with width between 321px and 767px */
-            .row.d-flex.justify-content-between.align-items-center {
-            }
+            .row.d-flex.justify-content-between.align-items-center {}
 
             .col {
                 flex-basis: 50%;
@@ -198,16 +196,22 @@
             </div>
         </div>
     </div>
-    <div class="container2 my-5">
-        <div class="input-container">
-            <a href="{{ route('offer.index') }}">
+    <form action="{{ route('handleLoginButtonClick') }}" method="POST">
+        @csrf
+        <div class="container2 my-5">
+            <div class="input-container">
+                <a href="{{ route('offer.index') }}">
 
-                <button class="copy-button">تسجيل دخول</button>
-            </a>
-            <input type="text" class="rounded-input" placeholder="أدخل معرف اللاعب">
-            <img class="input-img" src="{{ asset('images/login.png') }}">
+                    <button class="copy-button">تسجيل دخول</button>
+                </a>
+                <input type="text" class="rounded-input" name="login_input" placeholder="أدخل معرف اللاعب" value="{{ old('login_input') }}">
+                @if ($errors->has('login_input'))
+                <div class="error">{{ $errors->first('login_input') }}</div>
+                @endif
+                <img class="input-img" src="{{ asset('images/login.png') }}">
+            </div>
         </div>
-    </div>
+    </form>
     <div class="container2">
 
         <div class="row d-flex justify-content-center my-5">

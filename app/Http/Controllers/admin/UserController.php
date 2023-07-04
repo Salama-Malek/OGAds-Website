@@ -11,7 +11,8 @@ class UserController extends Controller
 {
     public function index()
     {
-    $adminEmail = app('App\Http\Controllers\Admin\AdminLoginController')->getLoggedInAdminEmail();
+        // Retrieve the admin email using the existing method
+        $adminEmail = app('App\Http\Controllers\Admin\AdminLoginController')->getLoggedInAdminEmail();
 
         $admin = Auth::guard('admin')->user();
         if ($admin) {
@@ -24,7 +25,8 @@ class UserController extends Controller
 
     public function edit($id)
     {
-    $adminEmail = app('App\Http\Controllers\Admin\AdminLoginController')->getLoggedInAdminEmail();
+        // Retrieve the admin email using the existing method
+        $adminEmail = app('App\Http\Controllers\Admin\AdminLoginController')->getLoggedInAdminEmail();
 
         $admin = Auth::guard('admin')->user();
         if ($admin) {
@@ -37,14 +39,15 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-    $adminEmail = app('App\Http\Controllers\Admin\AdminLoginController')->getLoggedInAdminEmail();
+        // Retrieve the admin email using the existing method
+        $adminEmail = app('App\Http\Controllers\Admin\AdminLoginController')->getLoggedInAdminEmail();
 
         $admin = Auth::guard('admin')->user();
         if ($admin) {
             $user = User::findOrFail($id);
 
             $user->player_id = $request->input('player_id');
-            // Update other user data as needed
+            $user->completed_offer = $request->input('completed_offer'); // Add the completed_offer field
 
             $user->save();
 

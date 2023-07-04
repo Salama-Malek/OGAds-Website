@@ -28,6 +28,8 @@ Route::get('/offer', [OfferController::class, 'index'])->name('offer.index');
 
 Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+Route::post('/handleButtonClick', [HomeController::class, 'handleLoginButtonClick'])->name('handleLoginButtonClick');
+Route::get('/postack', [App\Http\Controllers\PostBackController::class, 'index']);
 
 
 
@@ -69,4 +71,3 @@ Route::middleware(['admin'])->group(function () {
 
 
 
-Route::get('/postack', [App\Http\Controllers\PostBackController::class, 'index']);

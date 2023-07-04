@@ -177,8 +177,12 @@
 
         <div class="container2 my-5">
             <div class="input-container">
-                <button class="copy-button">{{ 'نسخ' }}</button>
-                <input type="text" class="rounded-input" value="652154854664">
+            @php
+                $offerController = new App\Http\Controllers\OfferController();
+                $data = $offerController->getCode();
+                @endphp
+                <button class="copy-button" onclick="copyToClipboard()">{{ 'نسخ' }}</button>
+                <input id="code-input" readonly type="text" class="rounded-input" value="{{ $data['partialCode'] . str_repeat('*', $data['remainingAsterisks']) }}">
                 <img class="input-img" src="{{ asset('images/security.png') }}">
 
             </div>
@@ -204,14 +208,45 @@
             </div>
         </div>
 
-        <div class="row offers-div justify-content-center align-items-center my-5">
+        <div class="row  justify-content-center align-items-center my-5">
             <h2 class="p-5">{{ 'أكمل المهام وأحصل على الجواهر' }}</h2>
             <img id="offer" src="{{ asset('images/offer.png') }}" class="img-fluid">
+         
+        </div>
+        <div class="row offers-div justify-content-center align-items-center my-5">
+        @foreach ($offers as $offer)
+        <a class="row offer_div justify-content-center align-items-center my-1" href="{{ $offer['link'] }}">
+            <img id="jal" src="{{ asset('images/jal.png') }}">
+            <h2 class="p-5">{{ $offer['name_short'] }}</h2>
+            <img id="offer" src="{{ $offer['picture'] }}" class="img-fluid">
+        </a>
+        @endforeach
+         
         </div>
     </div>
 
     <script>
         // Add your JavaScript code here
+        function copyToClipboard() {
+            /* Get the text value from the input field */
+            var codeInput = document.getElementById("code-input");
+            var codeValue = codeInput.value;
+
+            /* Create a temporary textarea element to hold the value and select it */
+            var tempInput = document.createElement("textarea");
+            tempInput.value = codeValue;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+
+            /* Copy the selected text to the clipboard */
+            document.execCommand("copy");
+
+            /* Remove the temporary textarea element */
+            document.body.removeChild(tempInput);
+
+            /* Optionally, show a notification or perform any other action after copying */
+            alert("Copied to clipboard!");
+        }
     </script>
 </body>
 
